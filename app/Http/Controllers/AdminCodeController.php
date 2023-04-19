@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Mail\EnviarCorreo;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Codigo;
@@ -87,6 +87,26 @@ class AdminCodeController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+
+
+    public function qr_qenerate()
+    {
+        
+        $qrCode = QrCode::size(400)->generate('Hello, World!');
+
+                
+
+        $response = response()->stream(function () {
+            echo "data: QR code scanned\n\n";
+            ob_flush();
+            flush();
+        });
+    
+        $response = new Response();
+        return ' <div style="text-align: center; margin-top: 120px">' . $qrCode .  $response .'</div>';        
+        
     }
 
     /**

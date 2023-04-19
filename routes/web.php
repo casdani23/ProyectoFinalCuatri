@@ -28,6 +28,7 @@ Route::get('/', function () {
 //Administador autenticacion
 Route::group(['middleware' => 'signed','role:Admin'], function() {
     Route::get('/code_Admin', [AdminCodeController::class, 'show'])->name("vista_codigo_Admin");
+    Route::get('/qrcode', [AdminCodeController::class,'qr_qenerate']);
     Route::resource('/Envio_Codigo_Admin',AdminCodeController::class)->only([
         'index'
     ])->names('enviar_admin')->except(['show'])->withoutMiddleware(['signed']);
