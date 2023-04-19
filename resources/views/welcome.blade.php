@@ -138,3 +138,10 @@
         </div>
     </body>
 </html>
+
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script type="module"> // the change is here
+        Echo.channel('home').listen('NewMessage',(e)=>{
+            console.log(e.message)
+        })
+    </script>
