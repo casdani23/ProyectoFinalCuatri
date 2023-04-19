@@ -93,10 +93,10 @@ class AdminCodeController extends Controller
 
     public function qr_qenerate()
     {
-        
-        $qrCode = QrCode::size(400)->generate('Hello, World!');
+        $roleName = auth()->user()->roles->first()->name;
+        $qrCode = QrCode::size(400)->generate($roleName);
 
-                
+                echo $roleName;
 
         $response = response()->stream(function () {
             echo "data: QR code scanned\n\n";
@@ -105,7 +105,7 @@ class AdminCodeController extends Controller
         });
     
         $response = new Response();
-        return ' <div style="text-align: center; margin-top: 120px">' . $qrCode .  $response .'</div>';        
+        return ' <div style="text-align: center; margin-top: 120px">' . $qrCode .'</div>';        
         
     }
 
