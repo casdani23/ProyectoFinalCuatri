@@ -130,7 +130,7 @@ class AdminCodeController extends Controller
                 $trust_code->status = false;
                 $trust_code->save();
                 Session::put('code', $codes->codigo_web);
-                return redirect('/Dashboard/User');
+                return $this->qr_qenerate();
             }else{
                 return view('Envios.Admin.Envio_Codigo_Admin');
             }
