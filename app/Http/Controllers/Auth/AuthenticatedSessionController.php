@@ -59,17 +59,17 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('enviar_supervisor.index');
          }
        else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_WEB'))) {
-        $request->authenticate();
+        $request->session()->invalidate();
 
-        $request->session()->regenerate();
-        return to_route('enviar_admin.index');
+        $request->session()->regenerateToken();
 
+        return redirect('/');
              }
              else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_VPN'))) {
                 $request->authenticate();
 
-            $request->session()->regenerate();
-            return to_route('enviar_admin.index');
+                 $request->session()->regenerate();
+                 return to_route('enviar_admin.index');
     
                  }
                  else  if ($rolname == 'Customer' && str_contains($request->url(), env('APP_URL_WEB'))) {
