@@ -17,9 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Traits\HasRoles;
 
 class AdminUserController extends Controller
 {
+
+    use HasRoles;
+
     function __construct()
     {
          $this->middleware('permission:/Dashboard/User.index|/Dashboard/User.create|/Dashboard/User.edit|/Dashboard/User.destroy')->only('index');

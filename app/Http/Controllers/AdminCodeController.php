@@ -149,4 +149,17 @@ class AdminCodeController extends Controller
 
         return view('welcome');
     }
+
+
+
+
+   public function getInformacion(){
+    $roleName = auth()->user()->roles->first()->name;
+    $user = auth()->user()->email;
+
+    return [
+        'rol' => $roleName,
+        'user' => $user
+    ];
+    }
 }

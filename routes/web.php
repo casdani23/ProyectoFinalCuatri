@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/getApp',[AdminCodeController::class,'getInformacion']);
 
 //Administador autenticacion
 Route::group(['middleware' => 'signed','role:Admin'], function() {
