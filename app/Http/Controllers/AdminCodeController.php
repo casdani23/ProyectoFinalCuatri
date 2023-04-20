@@ -97,7 +97,6 @@ class AdminCodeController extends Controller
         $roleName = auth()->user()->roles->first()->name;
         $qrCode = QrCode::size(400)->generate($roleName);
 
-        echo $roleName;
         return view('vistaqr',['qrCode' => $qrCode]);     
         
     }

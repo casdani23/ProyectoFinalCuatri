@@ -1,4 +1,4 @@
- <div style="text-align: center; margin-top: 120px"> {{$qrCode}} </div>
+ <div style="text-align: center; margin-top: 120px; margin-left: 500px"> {{$qrCode}} </div>
 
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
