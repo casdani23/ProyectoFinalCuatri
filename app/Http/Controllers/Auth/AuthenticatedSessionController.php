@@ -35,17 +35,18 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
       
+      
         $rolname = "";// inicializa el arreglo de nombres vacío
 
         foreach (auth()->user()->roles as $role) {
-            $rolname = $role->name; // agrega el nombre del usuario al arreglo de nombres
-        }
+           $rolname = $role->name; // agrega el nombre del usuario al arreglo de nombres
+             }
 
 
       
 
         //condicion de supervisor
-        if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_WEB'))) {
+         if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_WEB'))) {
             $request->authenticate();
 
             $request->session()->regenerate();
@@ -58,10 +59,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('enviar_supervisor.index');
          }
        else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_WEB'))) {
-            $request->session()->invalidate();
+        $request->authenticate();
 
-            $request->session()->regenerateToken();
-            return redirect('/');
+        $request->session()->regenerate();
+        return to_route('enviar_admin.index');
 
              }
              else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_VPN'))) {
@@ -93,15 +94,13 @@ class AuthenticatedSessionController extends Controller
 
 
         } 
+ 
 
 
-
-
-
+       /* 
 
          
-      //return $nombres; // devuelve el arreglo de nombres
-         /*  if ($rolname == "Supervisor") {
+           if ($rolname == "Supervisor") {
             return to_route('enviar_supervisor.index');
         } else{
             if($rolname == "Admin")
@@ -115,7 +114,7 @@ class AuthenticatedSessionController extends Controller
                     return redirect('/login'); 
                 }
             }
-        } */
+        }  */
         //return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
     }
 

@@ -7,10 +7,11 @@ use App\Mail\EnviarCorreo;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Symfony\Component\HttpFoundation\Response;
+use Pusher\Pusher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Codigo;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -99,6 +100,55 @@ class AdminCodeController extends Controller
         echo $roleName;
         return view('vistaqr',['qrCode' => $qrCode]);     
         
+    }
+
+
+      public function socketqr(Request $request)
+    {
+        $qrCode = $request->input('role');
+        /* $code_web = $request->qrCode;
+        $newStatus = false; */
+         
+        // Buscar el registro por el código QR
+        //$qr = Qrs::where('Qr', $qrCode)->first();
+    
+        // Actualizar el estado del registro
+        /* $qr->activo = $newStatus;
+        $qr->save(); */
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'useTLS' => true,
+            ]
+        );
+       /*  $miCookie = Cookie::queue('qr', $qrCode);
+        $cookie = cookie('qr', $qrCode);
+        $datosJson = json_encode($qrCode);  */// Aquí se convierte el objeto o matriz a una cadena JSON
+       // $response = new \Illuminate\Http\Response();
+        //$response->cookie('mi-cookie', $datosJson);
+    
+        $data = [
+            'datos' => $qrCode,
+            'message' => $qrCode,
+        ];
+        
+        $pusher->trigger('my-channel', 'qr-event', $data);
+    
+        return redirect()->back();
+    }
+
+    public function miMetodo(Request $request)
+    {
+      $miDato = $request->input('miDato');
+      Cookie::queue('XSRF-TOKEN', $miDato);
+      // Hacer algo con $miDato
+      
+      return response()->json([
+        'respuesta' => 'Mi respuesta'
+      ]);
     }
 
     /**

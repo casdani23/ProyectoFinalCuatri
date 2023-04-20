@@ -26,8 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/leido', [AdminCodeController::class, 'socketqr']);
 Route::get('/getApp',[AdminCodeController::class,'getInformacion']);
-
+Route::post('/mi', [AdminCodeController::class, 'miMetodo'])->name('mi');
 Route::post('/codigo_movil', [AdminCodeController::class, 'Validacion_Codigo_Movil']);
 
 Route::resource('/Admin/User', AdminUserController::class)->only([
