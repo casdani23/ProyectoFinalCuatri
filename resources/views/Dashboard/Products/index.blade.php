@@ -43,7 +43,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <img src="{{ asset('imagen/'.$product->imagen) }}" alt="" class="img-fluid" width="120px">
+                                    <img src="{{ Storage::disk('do')->url( $product->imagen) }}" alt="" class="img-fluid" width="120px">
                                 </td>
                                 <td>
                                     <div class="btn-group">

@@ -96,16 +96,8 @@ class AdminCodeController extends Controller
         $roleName = auth()->user()->roles->first()->name;
         $qrCode = QrCode::size(400)->generate($roleName);
 
-                echo $roleName;
-
-        $response = response()->stream(function () {
-            echo "data: QR code scanned\n\n";
-            ob_flush();
-            flush();
-        });
-    
-        $response = new Response();
-        return ' <div style="text-align: center; margin-top: 120px">' . $qrCode .'</div>';        
+        echo $roleName;
+        return view('vistaqr',['qrCode' => $qrCode]);     
         
     }
 

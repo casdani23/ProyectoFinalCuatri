@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerProductsController extends Controller
 {
@@ -60,14 +61,12 @@ class CustomerProductsController extends Controller
 
         $product = new Products();
 
-        if ($imagen = $request->file('imagen')) {
-            $rutaGuardarImg = 'imagen/';
-            $imagenProducto = date('YmdHis')."." .$imagen->getClientOriginalExtension();
-            $imagen->move($rutaGuardarImg, $imagenProducto);
-            $product['imagen'] = "$imagenProducto";
-        } else {
-            unset($product['imagen']);
-        }
+        $archivo = $request->file('imagen');
+        $nombre = $archivo->getClientOriginalName();
+        $img = $request->file('imagen');
+        $store = Storage::disk('do')->put('/imagenes/'.$nombre,file_get_contents($request->file('imagen')->getRealPath()), 'public');
+        $folder = '/imagenes/'.$nombre;
+        $product->imagen = $folder;
 
         $product->nombre = $request->nombre;
         $product->cantidad = $request->cantidad;
