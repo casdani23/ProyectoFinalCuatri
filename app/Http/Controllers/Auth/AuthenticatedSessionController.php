@@ -46,42 +46,44 @@ class AuthenticatedSessionController extends Controller
       
 
         //condicion de supervisor
-         if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_WEB'))) {
-            $request->authenticate();
 
-            $request->session()->regenerate();
-            return redirect()->route('enviar_supervisor.index');
-        } 
-        else if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_VPN'))) {
-            $request->authenticate();
+             if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_VPN'))) {
+                     $request->authenticate();
 
-            $request->session()->regenerate();
-            return redirect()->route('enviar_supervisor.index');
-         }else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_VPN'))) {
-            $request->authenticate();
+                     $request->session()->regenerate();
+                     return to_route('enviar_admin.index');
 
-             $request->session()->regenerate();
-             return to_route('enviar_admin.index');
+                    }
+                else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_WEB'))) {
+                         $request->session()->invalidate();
 
-             }
-       else  if ($rolname == 'Admin' && str_contains($request->url(), env('APP_URL_WEB'))) {
-        $request->session()->invalidate();
+                         $request->session()->regenerateToken();
 
-        $request->session()->regenerateToken();
+                         return redirect('/');
+                    }
+                 else  if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_WEB'))) {
+                              $request->authenticate();
 
-        return redirect('/');
-             }
-             else  if ($rolname == 'Customer' && str_contains($request->url(), env('APP_URL_VPN'))) {
-                $request->session()->invalidate();
+                             $request->session()->regenerate();
+                             return redirect()->route('enviar_supervisor.index');
+                      } 
+                 else if ($rolname == 'Supervisor' && str_contains($request->url(), env('APP_URL_VPN'))) {
+                              $request->authenticate();
 
-                $request->session()->regenerateToken();
-                return redirect('/');
+                               $request->session()->regenerate();
+                          return redirect()->route('enviar_supervisor.index');
+              }else 
+                    if ($rolname == 'Customer' && str_contains($request->url(), env('APP_URL_VPN'))) {
+                           $request->session()->invalidate();
+
+                              $request->session()->regenerateToken();
+                           return redirect('/');
                  }
-                 else  if ($rolname == 'Customer' && str_contains($request->url(), env('APP_URL_WEB'))) {
-                    $request->authenticate();
+                  else  if ($rolname == 'Customer' && str_contains($request->url(), env('APP_URL_WEB'))) {
+                                 $request->authenticate();
     
-                   $request->session()->regenerate();
-                   return redirect('/productos');
+                                 $request->session()->regenerate();
+                                 return redirect('/productos');
         
                      }
                     
