@@ -49,13 +49,15 @@ class AdminProductsController extends Controller
         ]);
 
         $product = new Products();
+
         $archivo = $request->file('imagen');
         $nombre = $archivo->getClientOriginalName();
         $img = $request->file('imagen');
         $store = Storage::disk('do')->put('/imagenes/'.$nombre,file_get_contents($request->file('imagen')->getRealPath()), 'public');
         $folder = '/imagenes/'.$nombre;
         $product->imagen = $folder;
-
+        
+         dd($product);
         $product->nombre = $request->nombre;
         $product->cantidad = $request->cantidad;
         $product->precio = $request->precio;
