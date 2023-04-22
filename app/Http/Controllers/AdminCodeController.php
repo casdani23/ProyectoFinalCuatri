@@ -115,14 +115,16 @@ class AdminCodeController extends Controller
         /* $qr->activo = $newStatus;
         $qr->save(); */
         $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
+            ('93101f2c9df29e4c095a'),
+            ('38aea821fff0c722a8ab'),
+            ('1586700'),
             [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'cluster' => ('us2'),
                 'useTLS' => true,
             ]
         );
+
+
        /*  $miCookie = Cookie::queue('qr', $qrCode);
         $cookie = cookie('qr', $qrCode);
         $datosJson = json_encode($qrCode);  */// Aquí se convierte el objeto o matriz a una cadena JSON
