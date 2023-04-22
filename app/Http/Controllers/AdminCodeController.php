@@ -115,11 +115,11 @@ class AdminCodeController extends Controller
         /* $qr->activo = $newStatus;
         $qr->save(); */
         $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
+            env('2b67b15a01669d19aaba'),
+            env('b51fde818d893e708dc6'),
+            env('1586700'),
             [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'cluster' => env('us2'),
                 'useTLS' => true,
             ]
         );
