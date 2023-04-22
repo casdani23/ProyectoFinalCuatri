@@ -57,7 +57,6 @@ class AdminProductsController extends Controller
         $folder = '/imagenes/'.$nombre;
         $product->imagen = $folder;
         
-         dd($product);
         $product->nombre = $request->nombre;
         $product->cantidad = $request->cantidad;
         $product->precio = $request->precio;
