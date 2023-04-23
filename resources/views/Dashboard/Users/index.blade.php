@@ -80,22 +80,21 @@
                                     @endcan
                                     @can('/Dashboard/User.destroy')
 
-                                      @foreach($roles as $rol)
-                                    @if($rol->name == 'Admin')
-                                        <button  type="submit" class="btn btn-danger disabled" >Eliminar</button>
-
-                                            @else
+                                    @foreach($roles as $rol)
+                                        @if($rol->name == 'Admin')
+                                            @if($user->hasRole('Admin'))
+                                                <button type="submit" class="btn btn-danger disabled">Eliminar</button>
+                                            @endif
+                                        @else
                                             <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
-                                        @method('PUT')
-                                        @method('DELETE')
-                                        @csrf
-
-                                      
-                                        <button  type="submit" class="btn btn-danger"  >Eliminar</button>
-                                      </form>
-
+                                                @method('PUT')
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
                                         @endif
-                                        @endforeach
+                                    @endforeach
+
 
 
 
