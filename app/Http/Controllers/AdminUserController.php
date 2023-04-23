@@ -39,9 +39,8 @@ class AdminUserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
-        $userRole = $users->roles->pluck('name','name')->all();
 
-        return view('Dashboard/Users/index', compact('users','roles','userRole'));
+        return view('Dashboard/Users/index', compact('users','roles'));
     }
 
     /**
