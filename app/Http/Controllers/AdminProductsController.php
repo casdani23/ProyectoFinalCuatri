@@ -100,22 +100,22 @@ class AdminProductsController extends Controller
             'marca' => 'required',
         ]);
     
-        $product = Products::find($id);
+        $products = Products::find($id);
         $archivo = $request->file('imagen');
         $nombre = $archivo->getClientOriginalName();
         $img = $request->file('imagen');
         $store = Storage::disk('do')->put('/imagenes/'.$nombre,file_get_contents($request->file('imagen')->getRealPath()), 'public');
         $folder = '/imagenes/'.$nombre;
-        $product->imagen = $folder;
+        $products->imagen = $folder;
         
-        $product->nombre = $request->nombre;
-        $product->cantidad = $request->cantidad;
-        $product->precio = $request->precio;
-        $product->calzado = $request->calzado;
-        $product->marca = $request->marca;
-        $product->status = $request->status;
+        $products->nombre = $request->nombre;
+        $products->cantidad = $request->cantidad;
+        $products->precio = $request->precio;
+        $products->calzado = $request->calzado;
+        $products->marca = $request->marca;
+        $products->status = $request->status;
 
-        $product->update($request->all());
+        $products->update($request->all());
     
         return redirect('/Dashboard/Products');
     }
