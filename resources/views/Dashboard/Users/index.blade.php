@@ -80,19 +80,15 @@
                                     @endcan
                                     @can('/Dashboard/User.destroy')
 
-                                    @php
-                                      $isAdminFound = false;
-                                  @endphp
+                                    @foreach($roles as $rol)
+                                        <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
+                                            @method('PUT')
+                                            @method('DELETE')
+                                            @csrf
+                                            @endforeach
 
-                                  @foreach($roles as $rol)
-                                      <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
-                                          @method('PUT')
-                                          @method('DELETE')
-                                          @csrf
-                                          <button type="submit" class="btn btn-danger {{ $isAdminFound ? 'disabled' : ($user->hasRole('Admin') ? ($isAdminFound = true) && 'disabled' : '') }}">Eliminar</button>
-                                      </form>
-                                  @endforeach
-
+                                            <button type="submit" class="btn btn-danger {{ $user->hasRole('Admin') ? 'disabled' : '' }}">Eliminar</button>
+                                        </form>
 
 
 
