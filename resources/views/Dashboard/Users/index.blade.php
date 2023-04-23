@@ -79,28 +79,19 @@
                                       <a href="{{ url('Dashboard/User/'.$user->id.'/edit') }}" class="btn btn-primary">Editar</a>
                                     @endcan
                                     @can('/Dashboard/User.destroy')
-                                    
-                                    @foreach($roles as $rol)
-                                        <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
-                                            @method('PUT')
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger {{ $user->hasRole('Admin') ? 'disabled' : '' }}">Eliminar</button>
-                                        </form>
-                                    @endforeach
 
+                                    @php
+                                      $isAdminFound = false;
+                                  @endphp
 
-
-
-
-                                      <!-- @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $rolName)
-                                            @foreach($roles as $rol)
-                                            <option value="{{ $rol->id }}" @if ($rolName == $rol->name) 
-                                                {{'selected'}} @endif>{{ $rol->name }}</option>
-                                            @endforeach
-                                            @endforeach
-                                        @endif -->
+                                  @foreach($roles as $rol)
+                                      <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
+                                          @method('PUT')
+                                          @method('DELETE')
+                                          @csrf
+                                          <button type="submit" class="btn btn-danger {{ $isAdminFound ? 'disabled' : ($user->hasRole('Admin') ? ($isAdminFound = true) && 'disabled' : '') }}">Eliminar</button>
+                                      </form>
+                                  @endforeach
 
 
 
