@@ -79,12 +79,38 @@
                                       <a href="{{ url('Dashboard/User/'.$user->id.'/edit') }}" class="btn btn-primary">Editar</a>
                                     @endcan
                                     @can('/Dashboard/User.destroy')
-                                      <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
+
+                                      @foreach($roles as $rol)
+                                    @if($rol->name == 'Admin')
+                                        <button  type="submit" class="btn btn-danger disabled" >Eliminar</button>
+
+                                            @else
+                                            <form action="{{ url('Dashboard/User/'.$user->id) }}" style="display:inline" method="post">
                                         @method('PUT')
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+
+                                      
+                                        <button  type="submit" class="btn btn-danger"  >Eliminar</button>
                                       </form>
+
+                                        @endif
+                                        @endforeach
+
+
+
+                                      <!-- @if(!empty($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $rolName)
+                                            @foreach($roles as $rol)
+                                            <option value="{{ $rol->id }}" @if ($rolName == $rol->name) 
+                                                {{'selected'}} @endif>{{ $rol->name }}</option>
+                                            @endforeach
+                                            @endforeach
+                                        @endif -->
+
+
+
+
                                     @endcan
                                     @can('/Dashboard/Roles.index')
                                       @if ($user->status == 1)

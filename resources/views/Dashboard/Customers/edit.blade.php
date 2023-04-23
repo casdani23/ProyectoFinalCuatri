@@ -79,7 +79,7 @@
                         <br>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group text-dark">
-                                <img src="{{ asset('imagen/'.$products->imagen) }}" alt="" style="height: 100px; width: 250px;">
+                            <img src="{{ Storage::disk('do')->url( $product->imagen) }}" alt="" class="img-fluid" width="120px">
                             </div>
                         </div>
                         <br><br>
