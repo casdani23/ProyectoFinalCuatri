@@ -113,16 +113,22 @@ class CustomerProductsController extends Controller
     
         $product = Products::find($id);
 
-        if ($imagen = $request->file('imagen')) {
-            $rutaGuardarImg = 'imagen/';
-            $imagenProducto = date('YmdHis')."." .$imagen->getClientOriginalExtension();
-            $imagen->move($rutaGuardarImg, $imagenProducto);
-            $product['imagen'] = "$imagenProducto";
-        } else {
-            unset($product['imagen']);
-        }
+        $archivo = $request->file('imagen');
+        $nombre = $archivo->getClientOriginalName();
+        $img = $request->file('imagen');
+        $store = Storage::disk('do')->put('/imagenes/'.$nombre,file_get_contents($request->file('imagen')->getRealPath()), 'public');
+        $folder = '/imagenes/'.$nombre;
+        $product->imagen = $folder;
+        
+        $product->nombre = $request->nombre;
+        $product->cantidad = $request->cantidad;
+        $product->precio = $request->precio;
+        $product->calzado = $request->calzado;
+        $product->marca = $request->marca;
+        $product->status = $request->status;
 
         $product->update($request->all());
+    
     
         return redirect('/productos');
     }
@@ -164,7 +170,7 @@ class CustomerProductsController extends Controller
 
         if($rolname == 'Customer'){
             $mail= new PermisoToken($signed_url,auth()->user()->name,auth()->user()->email);
-            Mail::to('prueba08320@gmail.com')->send($mail); 
+            Mail::to('hosstin12@gmail.com')->send($mail); 
 
             return redirect('/productos');
         }

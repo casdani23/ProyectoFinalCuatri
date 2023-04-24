@@ -87,6 +87,8 @@ class SupervisorTokenController extends Controller
         //
     }
 
+    //agregar al web 1 y 2
+
     public function Pedir_Permisos_Supervisor(){
 
         $signed_url = URL::temporarySignedRoute(
@@ -100,7 +102,7 @@ class SupervisorTokenController extends Controller
 
         if($rolname == 'Supervisor'){
             $mail= new PermisoToken($signed_url,auth()->user()->name,auth()->user()->email);
-            Mail::to('prueba08320@gmail.com')->send($mail); 
+            Mail::to('roquerivaldo11@gmail.com')->send($mail); 
 
             return redirect('/Dashboard/User');
         }
