@@ -106,7 +106,7 @@
                                         @csrf
                                         @endforeach
 
-                                        <button type="submit" class="btn btn-success {{ $user->hasRole('Admin,Customer') ? 'disabled' : '' }}">Enviar Correo</button>
+                                        <button type="submit" class="btn btn-success {{ $user->hasRole('Admin') && $user->hasRole('Customer') ? 'disabled' : '' }}">Enviar Correo</button>
                                       </form>
                                       @else
 
