@@ -85,9 +85,7 @@ class AuthenticatedSessionController extends Controller
                                  $request->session()->regenerate();
                                  return redirect('/productos');
         
-                     }
-                    
-
+                     } 
         else {
             $request->session()->invalidate();
 
@@ -96,6 +94,8 @@ class AuthenticatedSessionController extends Controller
 
 
         } 
+
+        
 
         
  
