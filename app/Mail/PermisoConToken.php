@@ -20,12 +20,15 @@ class PermisoConToken extends Mailable
     public $data;
     public $email;
     public $name;
+    public $crip;
 
-    public function __construct($data,$name,$email)
+    public function __construct($data,$name,$email,$crip)
     {
         $this->data = $data;
         $this->name = $name;
         $this->email = $email;
+        $this->crip = $crip;
+
     }
 
     /**

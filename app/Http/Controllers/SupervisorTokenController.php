@@ -59,7 +59,7 @@ class SupervisorTokenController extends Controller
     public function show()
     {
         
-        $encryption_key = env('CRYPT_KEY');
+         $encryption_key = env('CRYPT_KEY');
         $token = Token::where('Token_user_id', Auth::user()->id)->where('status',true)->first();
         return view('Dashboard.Tokens.Vista_Token_Supervisor',['token'=>Crypt::decryptString($token->token_verificacion_web, $encryption_key)]);
     }
@@ -130,25 +130,19 @@ class SupervisorTokenController extends Controller
             $token->status = true;
             $token->save();
 
-            $encryption_key = env('CRYPT_KEY');
-            $token = Token::where('Token_user_id', Auth::user()->id)->where('status',true)->first();
-            $tokenvista = ['token'=>Crypt::decryptString($token->token_verificacion_web, $encryption_key)];
-
             $signed_url = URL::temporarySignedRoute(
                 
-                
-                'Vista_Token_Customer', now()->addMinutes(30),Auth::user()->id,$tokenvista
+                'Vista_Token_Customer', now()->addMinutes(30),Auth::user()->id
             );
 
+            $encryption_key = env('CRYPT_KEY');
+            $token = Token::where('Token_user_id', Auth::user()->id)->where('status',true)->first();
+            $crip = Crypt::decryptString($token->token_verificacion_web, $encryption_key);
 
-
-       
-
-            $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email);
+            $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email, $crip);
             Mail::to($customer->email)->send($mailtoken);
 
-          
-            
+        
             return redirect('Dashboard/SupervisorToken');
         }
     }

@@ -9,6 +9,6 @@
 <body>
     <h1>Permiso Para cliente mandado por el supervisor {{ $name }} con el correo {{ $email }}</h1>
     <p>En este enlace habrá un token que le permitira hacer modificaciones</p>
-    <a href="{{$data}}" target="_blank" rel="noopener noreferrer"> {{$data}} </a>
+    <h1>{{$crip}}</h1>
 </body>
 </html>
