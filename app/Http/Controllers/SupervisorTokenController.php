@@ -129,13 +129,12 @@ class SupervisorTokenController extends Controller
             $token->save();
 
 
-            $dominio ='https://njrtech.online';
 
             $signed_url = URL::temporarySignedRoute(
                 
                 'Vista_Token_Customer', now()->addMinutes(30),Auth::user()->id
             );
-            $signed_url = $dominio;
+            $signed_url = str_replace('http://10.10.0.4', 'https://njrtech.online', $signed_url);
 
             $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email);
             Mail::to($customer->email)->send($mailtoken);
