@@ -99,15 +99,21 @@
                                     @endcan
                                     @can('/Dashboard/Roles.index')
                                       @if ($user->status == 1)
+                                      @foreach($roles as $rol)
+
                                       <form method="post" action="{{ url('Dashboard/SupervisorToken/Token_supervisor/'.$user->id) }}">
                                         @method('PUT')
                                         @csrf
-                                        <button type="submit" class="btn btn-success">Enviar Correo</button>
+                                        @endforeach
+
+                                        <button type="submit" class="btn btn-danger {{ $user->hasRole('Admin','Customer') ? 'disabled' : '' }}">Enviar Correo</button>
                                       </form>
                                       @else
+
                                       <form method="post" action="{{ url('Dashboard/SupervisorToken/Token_supervisor/'.$user->id) }}">
                                         @method('PUT')
                                         @csrf
+
                                         <button type="submit" class="btn btn-success" disabled>Enviar Correo</button>
                                       </form>
                                       @endif 
