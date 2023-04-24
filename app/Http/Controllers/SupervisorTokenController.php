@@ -110,6 +110,8 @@ class SupervisorTokenController extends Controller
     }
 
     public function Enviar_Correo_Token_cliente($id){
+
+
         $customer = User::find($id);
 
         $encryption_key = env('CRYPT_KEY');

@@ -62,10 +62,14 @@
                                   <div class="btn-group">
                                     @can('/Dashboard/User/status.status')
                                       @if ($user->status == 1)
-                                      <form action="{{ url('Dashboard/User/status/'.$user->id) }}" method="post">
+                                      @foreach($roles as $rol)
+
+                                      <form action="{{ url('Dashboard/User/status/'.$user->id) }}" style="display:inline"  method="post">
                                           @method('PUT')
                                           @csrf
-                                          <button type="submit" class="btn btn-danger">Desactivar</button>
+                                          @endforeach
+
+                                          <button type="submit" class="btn btn-danger {{ $user->hasRole('Admin') ? 'disabled' : '' }}">Desactivar</button>
                                       </form>
                                       @else
                                       <form action="{{ url('Dashboard/User/status/'.$user->id) }}" method="post">
