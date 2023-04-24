@@ -58,6 +58,7 @@ class SupervisorTokenController extends Controller
      */
     public function show()
     {
+        
         $encryption_key = env('CRYPT_KEY');
         $token = Token::where('Token_user_id', Auth::user()->id)->where('status',true)->first();
         return view('Dashboard.Tokens.Vista_Token_Supervisor',['token'=>Crypt::decryptString($token->token_verificacion_web, $encryption_key)]);
@@ -127,10 +128,14 @@ class SupervisorTokenController extends Controller
             $token->status = true;
             $token->save();
 
+
+            $dominio ='https://njrtech.online';
+
             $signed_url = URL::temporarySignedRoute(
+                
                 'Vista_Token_Customer', now()->addMinutes(30),Auth::user()->id
             );
-            $signed_url = str_replace('http://10.10.0.4', 'https://njrtech.online', $signed_url);
+            $signed_url = $dominio;
 
             $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email);
             Mail::to($customer->email)->send($mailtoken);
