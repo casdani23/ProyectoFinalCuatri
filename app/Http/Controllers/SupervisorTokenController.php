@@ -172,7 +172,10 @@ class SupervisorTokenController extends Controller
                 'Vista_Token_Supervisor', now()->addMinutes(30),Auth::user()->id
             );
 
-            $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email);
+            $crip = $codigoTokenPermisosSupervisor;
+
+
+            $mailtoken = new PermisoConToken($signed_url,auth()->user()->name,auth()->user()->email,$crip);
             Mail::to($user->email)->send($mailtoken);
             
             return redirect('Dashboard/User');
